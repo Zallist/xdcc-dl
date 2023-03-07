@@ -37,10 +37,14 @@ def main(args: argparse.Namespace, logger: logging.Logger):
     :return: None
     """
     try:
+        outdir = args.out
+
+        if not outdir:
+            outdir = os.getcwd()
+
         packs = XDCCPack.from_xdcc_message(
-            args.message, os.getcwd(), args.server
+            args.message, outdir, args.server
         )
-        prepare_packs(packs, args.out)
 
         download_packs(
             packs,
